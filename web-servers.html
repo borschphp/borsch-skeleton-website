@@ -1,0 +1,63 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="robots" content="noindex"><meta name="built-on" content="2025-02-13T19:05:22.59250392"><title>Web servers | Borsch Skeleton</title><script type="application/json" id="virtual-toc-data">[{"id":"php-built-in-server","level":0,"title":"PHP Built-in server","anchor":"#php-built-in-server"},{"id":"apache","level":0,"title":"Apache","anchor":"#apache"},{"id":"nginx","level":0,"title":"Nginx","anchor":"#nginx"},{"id":"frankenphp","level":0,"title":"FrankenPHP","anchor":"#frankenphp"},{"id":"other-web-servers","level":0,"title":"Other web servers","anchor":"#other-web-servers"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b575/app.css" rel="stylesheet"><meta name="msapplication-TileColor" content="#000000"><link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png"><meta name="msapplication-TileImage" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"><meta name="msapplication-square70x70logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"><meta name="msapplication-square150x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"><meta name="msapplication-wide310x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"><meta name="msapplication-square310x310logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="Web servers | Borsch Skeleton"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="Borsch Skeleton Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="writerside-documentation/web-servers.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="Web servers | Borsch Skeleton"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "@id": "writerside-documentation/web-servers.html#webpage",
+    "url": "writerside-documentation/web-servers.html",
+    "name": "Web servers | Borsch Skeleton",
+    "description": "",
+    "image": "",
+    "inLanguage":"en-US"
+}</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json">{
+    "@type": "WebSite",
+    "@id": "writerside-documentation/#website",
+    "url": "writerside-documentation/",
+    "name": "Borsch Skeleton Help"
+}</script><!-- End Schema.org --></head><body data-id="Web-servers" data-main-title="Web servers" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Get started"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Borsch Skeleton  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Web-servers" id="Web-servers.md">Web servers</h1><p id="-hk6uz5_3">Borsch uses the front-controller pattern to funnel HTTP requests received by your web server to a single PHP file: <code class="code" id="-hk6uz5_9">./public/index.php</code>.</p><section class="chapter"><h2 id="php-built-in-server" data-toc="php-built-in-server">PHP Built-in server</h2><aside class="prompt" data-type="warning" data-title="" id="-hk6uz5_10"><p id="-hk6uz5_13"><span class="control" id="-hk6uz5_15">CAUTION</span></p><p id="-hk6uz5_14">Warning: It is not intended to be a full-featured web server. It should not be used for production.</p></aside><p id="-hk6uz5_11">Run the following command in terminal to start a localhost web server:</p><div class="code-block" data-lang="bash">
+php -S 0.0.0.0:8080 -t ./public/ ./public/index.php
+# Or via composer script
+composer serve
+</div></section><section class="chapter"><h2 id="apache" data-toc="apache">Apache</h2><p id="-hk6uz5_16">Make sure the server root points to <code class="code" id="-hk6uz5_20">./public/index.php</code>, then make sure a <code class="code" id="-hk6uz5_21">.htaccess</code> file exists in the same folder. <br> By default there is one but if you deleted it then you can recreate one with this inside :</p><div class="code-block" data-lang="apacheconf">
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+</div><p id="-hk6uz5_18">Make sure to enable Apache's mod_rewrite module and your virtual host is configured with the <code class="code" id="-hk6uz5_23">AllowOverride</code> option so that the <code class="code" id="-hk6uz5_24">.htaccess</code> rewrite rules can be used:</p><div class="code-block" data-lang="apacheconf">
+AllowOverride All
+</div></section><section class="chapter"><h2 id="nginx" data-toc="nginx">Nginx</h2><p id="-hk6uz5_25">Here is a basic virtual host configuration:</p><div class="code-block" data-lang="nginx">
+server {
+    listen 80;
+
+    # If your app use SSL, and it should, comment the line above and configure the one below
+    # listen 443 ssl;
+    # ssl_certificate /etc/nginx/ssl/certificate.bundle.crt;
+    # ssl_certificate_key /etc/nginx/ssl/certificate.key;
+
+    # Replace with your values
+    server_name borsch-app.domain.tld;
+    access_log /var/log/nginx/borsch_access_log;
+    error_log /var/log/nginx/borsch_error_log;
+
+    # Indicate your project path
+    root /var/www/html/borsch/public;
+
+    index index.php;
+
+    # To modify according to your needs
+    add_header X-Frame-Options &quot;ALLOWALL&quot;;
+    add_header Access-Control-Allow-Origin &quot;*&quot;;
+    add_header Access-Control-Allow-Headers &quot;*&quot;;
+    add_header Access-Control-Allow-Credentials &quot;*&quot;;
+
+    location ~ \.php$ {
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_index index.php;
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location / {
+             try_files $uri $uri/ /index.php?$query_string;
+    }
+}
+</div></section><section class="chapter"><h2 id="frankenphp" data-toc="frankenphp">FrankenPHP</h2><p id="-hk6uz5_27">A <code class="code" id="-hk6uz5_29">Dockerfile</code> is present at the root of your application, it can be used to start the application with the worker mode for more performances.</p><p id="-hk6uz5_28">Unlike other web server, with FrankenPHP in worker mode, the entrypoint of your application is the file <code class="code" id="-hk6uz5_30">./index/worker.php</code>.</p></section><section class="chapter"><h2 id="other-web-servers" data-toc="other-web-servers">Other web servers</h2><p id="-hk6uz5_31">If you have configuration for other web server then let us know so we can add it here (with a big thank you and a link to your page 😉).</p></section><div class="last-modified">Last modified: 13 February 2025</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="installation.html" class="navigation-links__prev">Installation</a><a href="configuration.html" class="navigation-links__next">Configuration</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b575/app.js"></script></body></html>
