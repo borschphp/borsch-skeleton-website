@@ -1,0 +1,8 @@
+spec:
+  name: borsch-skeleton-website
+  static_sites:
+    - environment_slug: html
+      git:
+        branch: main
+        repo_clone_url: https://github.com/borschphp/borsch-skeleton-website.git
+      name: borsch-skeleton-website

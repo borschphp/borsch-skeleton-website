@@ -1,0 +1,8 @@
+name: borsch-skeleton-website
+static_sites:
+  - environment_slug: html
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: borschphp/borsch-skeleton-website
+    name: borsch-skeleton-website
