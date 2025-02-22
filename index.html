@@ -1,9 +1,36 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<meta charset="utf-8">
-<title>You will be redirected shortly</title>
-<meta http-equiv="refresh" content="0; url=introduction.html">
-<h1>Redirecting&hellip;</h1>
-<a href="introduction.html">Click here if you are not redirected.</a>
-<script>location = "introduction.html"</script>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bosch Skeleton - Documentation</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Borsch Skeleton documentation to kick start your next project." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="icon" type="image/png" href="/_media/favicon.png">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'Borsch Skeleton',
+      repo: 'https://github.com/borschphp/borsch-skeleton',
+      loadSidebar: true,
+      logo: '/_media/logo.png',
+      themeColor: '#985075',
+      auto2top: true,
+      pagination: {
+        crossChapter: true
+      },
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+  <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+</body>
 </html>
